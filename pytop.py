@@ -9,12 +9,18 @@ def listDirs():#listar os diretórios em /proc
 def searchPath(userPath): #encontra todos os Processos gerados pelo binário
     dirs=listDirs()
     userPathPids=[]
+
     for pid in dirs:
+        
         procsLinks=f"/proc/{pid}/exe"
+
         if os.path.exists(procsLinks) and os.path.islink(procsLinks):
+
             procPath=os.readlink(procsLinks)
+
             if userPath==procPath:
                 userPathPids.append(pid)
+
     return userPathPids
 
 def procMetrics(pid):
@@ -33,7 +39,6 @@ def procMetrics(pid):
         # Total de atividade de disco pelo processo em bytes
         disk_usage = process.io_counters()
 
-    
     return cpu_percent, mem_used, disk_usage
 
 def showMetrics(pids):
