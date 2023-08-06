@@ -18,17 +18,21 @@ def searchPath(userPath): #encontra todos os Processos gerados pelo binário
     return userPathPids
 
 def procMetrics(pid):
-    process = psutil.Process(pid)
-    
-    # Porcentagem total de uso de CPU pelo processo
-    cpu_percent = process.cpu_percent(interval=1)
-    
-    # Total de memória usada pelo processo em bytes
-    mem_info = process.memory_info()
-    mem_used = mem_info.rss
-    
-    # Total de atividade de disco pelo processo em bytes
-    disk_usage = process.io_counters()
+    try:
+        process = psutil.Process(pid)
+    except psutil.Error as e:
+        print(e)
+    else:
+        # Porcentagem total de uso de CPU pelo processo
+        cpu_percent = process.cpu_percent(interval=1)
+        
+        # Total de memória usada pelo processo em bytes
+        mem_info = process.memory_info()
+        mem_used = mem_info.rss
+        
+        # Total de atividade de disco pelo processo em bytes
+        disk_usage = process.io_counters()
+
     
     return cpu_percent, mem_used, disk_usage
 
@@ -43,7 +47,8 @@ def showMetrics(pids):
 
 def main():
     binPath=input("bin: ")
-    binPids=searchPath(binPath)
-    showMetrics(binPids)
+    while True:
+        binPids=searchPath(binPath)
+        showMetrics(binPids)
 
 main()
