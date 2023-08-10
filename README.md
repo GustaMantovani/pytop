@@ -1,4 +1,4 @@
-# PathTop
+# pytop
 
 Este é um script Python que permite a busca por processos iniciados por um determinado binário e exibe algumas métricas de uso de CPU e memória para cada processo encontrado.
 O script utiliza os módulos os, psutil e subprocess do Python. O módulo os é usado para listar os diretórios em /proc, o módulo psutil é usado para acessar dados de uso de CPU, memória e disco do processo.
